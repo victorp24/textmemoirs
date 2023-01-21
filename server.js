@@ -19,7 +19,7 @@ app.use(logRequest);
 
 const { Client } = require('pg')
 
-const client = new Client( "postgresql://parm-nwhacks:pp4yk1Z0r6dqC3SkcOne6w@dissed-lion-4737.6wr.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full" ) 
+const client = new Client( "postgresql://parm-nwhacks:<ENTER-SQL-USER-PASSWORD>@dissed-lion-4737.6wr.cockroachlabs.cloud:26257/textmemoirDB?sslmode=verify-full" ) 
 
 client.connect((err) => {
 if (err) {
