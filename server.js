@@ -19,7 +19,7 @@ app.use(logRequest);
 
 const { Client } = require('pg')
 
-const client = new Client("postgresql://parm-nwhacks:pp4yk1Z0r6dqC3SkcOne6w@dissed-lion-4737.6wr.cockroachlabs.cloud:26257/textmemoirDB?sslmode=verify-full"); 
+const client = new Client("postgresql://parm-nwhacks:<ENTER-SQL-USER-PASSWORD>@dissed-lion-4737.6wr.cockroachlabs.cloud:26257/textmemoirdatabase?sslmode=verify-full"); 
 
 client.connect((err) => {
 if (err) {
@@ -81,6 +81,24 @@ app.get("/getUsers", (req, res) => {
         })
 })
 
+//AddTexts
+app.post("/addText", (req, res) => {
+    const {userPhoneNumber, textBody, creationDate, creationTime} = req.body;
+    let insertTextQuery = {
+        name: "insertTextQuery",
+        text: "INSERT INTO texts(phoneNumber, textMessage, creationDate, creationTime) VALUES($1, $2, $3, $4) RETURNING textId",
+        values: [userPhoneNumber, textBody, creationDate, creationTime]
+    };
+
+    client.query(insertTextQuery)
+        .then((data) => {
+            res.send(data.rows[0]);
+        })
+        .catch((error) => {
+            console.log(error.stack);
+        })
+})
+
 //GetTextsByUserAndDay
 app.get("/getTextsByUserAndDay", (req, res) => {
     const {userPhoneNumber, textDate} = req.body;
@@ -100,10 +118,6 @@ app.get("/getTextsByUserAndDay", (req, res) => {
         });
 })
 
-//AddTexts
-app.post("/addTexts", (req, res) => {
-
-})
 
 //EditTextById
 app.put("/editTextsById", (req, res) => {
