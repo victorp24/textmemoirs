@@ -1,5 +1,4 @@
 const path = require('path');
-const fs = require('fs');
 const express = require('express');
 const host = 'localhost';
 const port = 5000;
@@ -19,7 +18,7 @@ app.use(logRequest);
 
 const { Client } = require('pg')
 
-const client = new Client("postgresql://parm-nwhacks:password@dissed-lion-4737.6wr.cockroachlabs.cloud:26257/textmemoirnwhacks?sslmode=verify-full"); 
+const client = new Client("postgresql://parm-nwhacks:pp4yk1Z0r6dqC3SkcOne6w@dissed-lion-4737.6wr.cockroachlabs.cloud:26257/textmemoirnwhacks?sslmode=verify-full"); 
 
 client.connect((err) => {
 if (err) {
@@ -64,8 +63,7 @@ app.post("/insertUser", (req, res) => {
             res.send(data.rows[0]);
         })
         .catch((error) => {
-            console.log(error.stack);
-            res.send({error: "Something Went Wrong"})
+            res.send({error: "Unable to insert user"})
         })
 })
 
@@ -77,7 +75,7 @@ app.get("/getUsers", (req, res) => {
             res.send(data.rows);
         })
         .catch((error) => {
-            res.send(error.stack);
+            res.send({error: "unable to get users"});
         })
 })
 
@@ -95,7 +93,7 @@ app.post("/addText", (req, res) => {
             res.send(data.rows[0]);
         })
         .catch((error) => {
-            console.log(error.stack);
+            res.send({error: "unable to add text"});
         })
 })
 
@@ -110,23 +108,55 @@ app.get("/getTextsByUserAndDay", (req, res) => {
 
     client.query(getTextsQuery)
         .then((data) => {
-            console.log(data);
-            res.send(data);
+            res.send(data.rows);
         })
         .catch((error) => {
-            console.log(error.stack);
+            res.send({error: "unable to get texts"});
+        });
+})
+
+//Get All Texts
+app.get("/getAllTexts", (req, res) => {
+    let getAllTextsQuery = "SELECT * FROM texts";
+    client.query(getAllTextsQuery)
+        .then((data) => {
+            res.send(data.rows);
+        })
+        .catch((error) => {
+            res.send({error: "unable to get texts"});
         });
 })
 
 
 //EditTextById
 app.put("/editTextsById", (req, res) => {
+    const {textId, textMessage} = req.body;
+    let editTextQuery = {
+        name: "editTextQuery",
+        text: "Update texts SET textMessage = $1 WHERE textId = $2",
+        values: [textMessage, textId]
+    };
 
+    client.query(editTextQuery)
+        .then(() => {
+            res.send({textId});
+        })
+        .catch(() => {
+            res.send({error: "Unable To Update Message"})
+        })
 })
 
 //DeleteTextById
 app.delete("/deleteTextsById", (req, res) => {
-
+    const textId = req.body.textId;
+    let deleteTextQuery = `DELETE FROM texts WHERE textId = ${textId}`
+    client.query(deleteTextQuery)
+        .then(() => {
+            res.send({message: "Succesfully Deleted"})
+        })
+        .catch(() => {
+            res.send({error: "Unable To Delete Text"})
+        })
 })
 
 app.listen(port, () => {
