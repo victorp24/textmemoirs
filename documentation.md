@@ -70,3 +70,10 @@ Edit a specific text by ID.
 "textId":  2,
 "textMessage":  "Updated text message"
 }</code>
+
+### Get All Texts
+
+Get all texts in the database.
+
+-   Method: **GET**
+-   URL: `/getAllTexts`
