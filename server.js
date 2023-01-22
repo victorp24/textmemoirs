@@ -3,13 +3,14 @@ const express = require('express');
 const host = 'localhost';
 const port = 5000;
 const clientApp = path.join(__dirname, 'client');
+
 const cors = require('cors');
 // express app
 let app = express();
 
 // helper function to log all incoming requests to the web server
 function logRequest(req, res, next){
-	console.log(`${new Date()}  ${req.ip} : ${req.method} ${req.path}`);
+    console.log(`${new Date()}  ${req.ip} : ${req.method} ${req.path}`);
 	next();
 }
 
@@ -19,8 +20,8 @@ app.use(logRequest);
 app.use(cors());	
 
 const { Client } = require('pg')
-
-const client = new Client("postgresql://parm-nwhacks:pp4yk1Z0r6dqC3SkcOne6w@dissed-lion-4737.6wr.cockroachlabs.cloud:26257/textmemoirnwhacks?sslmode=verify-full"); 
+const connectionString = "postgres://cvvrbfes:NJOlLogK8f2de6TZnnJfOPwnS-kO0ftg@kashin.db.elephantsql.com/cvvrbfes";
+const client = new Client(connectionString); 
 
 client.connect((err) => {
 if (err) {
@@ -64,7 +65,7 @@ app.post("/insertUser", (req, res) => {
         .then((data) => {
             res.send(data.rows[0]);
         })
-        .catch((error) => {
+        .catch(() => {
             res.send({error: "Unable to insert user"})
         })
 })
@@ -76,7 +77,7 @@ app.get("/getUsers", (req, res) => {
         .then((data) => {
             res.send(data.rows);
         })
-        .catch((error) => {
+        .catch(() => {
             res.send({error: "unable to get users"});
         })
 })
@@ -94,7 +95,7 @@ app.post("/addText", (req, res) => {
         .then((data) => {
             res.send(data.rows[0]);
         })
-        .catch((error) => {
+        .catch(() => {
             res.send({error: "unable to add text"});
         })
 })
@@ -112,7 +113,7 @@ app.get("/getTextsByUserAndDay", (req, res) => {
         .then((data) => {
             res.send(data.rows);
         })
-        .catch((error) => {
+        .catch(() => {
             res.send({error: "unable to get texts"});
         });
 })
@@ -124,7 +125,7 @@ app.get("/getAllTexts", (req, res) => {
         .then((data) => {
             res.send(data.rows);
         })
-        .catch((error) => {
+        .catch(() => {
             res.send({error: "unable to get texts"});
         });
 })
