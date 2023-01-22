@@ -3,6 +3,7 @@ const express = require('express');
 const host = 'localhost';
 const port = 5000;
 const clientApp = path.join(__dirname, 'client');
+const cors = require('cors');
 // express app
 let app = express();
 
@@ -14,7 +15,8 @@ function logRequest(req, res, next){
 
 app.use(express.json({limit:'50mb', extended : true})) 						// to parse application/json
 app.use(express.urlencoded({ limit:'50mb', extended: true })) // to parse application/x-www-form-urlencoded
-app.use(logRequest);	
+app.use(logRequest);
+app.use(cors());	
 
 const { Client } = require('pg')
 
