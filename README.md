@@ -7,8 +7,7 @@ Text Memoirs is designed to make the benefits of journalling easy and accessible
 
 Text Memoirs utilizes Twilio’s API to receive and store user’s text messages in a CockroachDB database. The frontend interface for viewing a user’s daily journals is built using Flutter.
 
-![]([http://url/to/img.png](https://drive.google.com/file/d/1EU7DHIMvgs8kcH5-ISmOsCgT6mL6_TYE/view?usp=sharing))
-![]([[http://url/to/img.png](https://drive.google.com/file/d/1EU7DHIMvgs8kcH5-ISmOsCgT6mL6_TYE/view?usp=sharing)](https://drive.google.com/file/d/1swQ0IJ-tqnVqx21ocA9chJWYXSeYcIgn/view?usp=sharing))
+![Journal in action]([http://url/to/img.png](https://drive.google.com/file/d/1EU7DHIMvgs8kcH5-ISmOsCgT6mL6_TYE/view?usp=share_link))
 
 
 # TextMemoirs API
