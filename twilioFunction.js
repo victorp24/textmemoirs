@@ -2,7 +2,7 @@ const axios = require('axios');
 // This is your new function. To start, set the name and path on the left.
 
 exports.handler = async function(context, event, callback) {
-  if(event.Body.startsWith("/DELETE")) {
+  if(event.Body.startsWith("/DELETE ")) {
     console.log("Entered delete branch");
     var textId = event.Body.split(" ")[1];
     let payload = { textId: textId };
@@ -17,7 +17,7 @@ exports.handler = async function(context, event, callback) {
       console.log("Sent a reply successfully");
     })
 
-  } else if (event.Body.startsWith("/EDIT")) {
+  } else if (event.Body.startsWith("/EDIT ")) {
     console.log("Entered edit branch");
     var textId = event.Body.split(" ")[1];
     var body = event.Body.split(" ");
