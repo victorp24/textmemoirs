@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './pages/home.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // Colours
 const PrimaryColorDark = const Color(0xFF6B6054);
@@ -29,16 +30,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'TextMemoirs',
       theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            backgroundColor: Colors.transparent,
-            foregroundColor: PrimaryColorDark,
-            elevation: 0,
-            titleTextStyle: TextStyle(
-                fontFamily: 'Arial',
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          ),
+          appBarTheme: AppBarTheme(
+              backgroundColor: Colors.transparent,
+              foregroundColor: PrimaryColorDark,
+              elevation: 0,
+              titleTextStyle: GoogleFonts.ubuntu(
+                  color: Color(0xFF137a63),
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold)),
           backgroundColor: Background,
           primaryColor: PrimaryColor,
           primaryColorDark: PrimaryColorDark,

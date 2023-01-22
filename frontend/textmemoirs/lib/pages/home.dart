@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
           title: const Text('TextMemoirs'),
         ),
         body: Padding(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.only(left: 20, bottom: 20, right: 20),
             child: Scaffold(
               backgroundColor: Colors.white,
               body: Column(
@@ -96,6 +96,21 @@ class _HomePageState extends State<HomePage> {
                                 buttonText: 'Date',
                                 onPressed: () async => {
                                   date = (await showDatePicker(
+                                      builder: (context, child) {
+                                        return Theme(
+                                          data: Theme.of(context).copyWith(
+                                            colorScheme: ColorScheme.light(
+                                              primary: Color(
+                                                  0xFF137a63), // header background color
+                                              onPrimary: Colors
+                                                  .white, // header text color
+                                              onSurface: Colors
+                                                  .black, // body text color
+                                            ),
+                                          ),
+                                          child: child!,
+                                        );
+                                      },
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(2021),
@@ -104,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                                     creationDate.value = date;
                                   }),
                                 },
-                                colour: PrimaryColorLight,
+                                colour: Color(0xFF137a63),
                               ),
                             ),
                           ],
@@ -138,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                                   return BubbleNormal(
                                     text: msg,
                                     isSender: true,
-                                    color: Color(0xFF1B97F3),
+                                    color: Color(0xFF137a63),
                                     tail: true,
                                     textStyle: const TextStyle(
                                       fontSize: 20,
