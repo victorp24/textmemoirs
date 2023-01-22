@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:intl/intl.dart';
@@ -21,13 +21,14 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  final number = "%2B17707626118";
+  final server_uri = "http://18.144.90.175:5000";
+  final number = "%2B17707626117";
   final today = DateTime.now();
   late var creationDate = ValueNotifier<DateTime>(today);
 
   Future<List> getRequest() async {
     final String _url =
-        "http://localhost:5000/getTextsByUserAndDay?phoneNumber=$number&creationDate=${DateFormat('yMd').format(creationDate.value)}";
+        "$server_uri/getTextsByUserAndDay?phoneNumber=$number&creationDate=${DateFormat('yMd').format(creationDate.value)}";
     final Uri _uri = Uri.parse(_url);
     print("uri = $_uri");
     final headers = {
@@ -99,7 +100,8 @@ class _HomePageState extends State<HomePage> {
                                       builder: (context, child) {
                                         return Theme(
                                           data: Theme.of(context).copyWith(
-                                            colorScheme: ColorScheme.light(
+                                            colorScheme:
+                                                const ColorScheme.light(
                                               primary: Color(
                                                   0xFF137a63), // header background color
                                               onPrimary: Colors
@@ -119,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                                     creationDate.value = date;
                                   }),
                                 },
-                                colour: Color(0xFF137a63),
+                                colour: const Color(0xFF137a63),
                               ),
                             ),
                           ],
@@ -144,12 +146,12 @@ class _HomePageState extends State<HomePage> {
                           print(messages);
                           if (messages != null && messages.isNotEmpty) {
                             return ListView.builder(
-                                itemCount: messages?.length,
+                                itemCount: messages.length,
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
                                 reverse: true,
                                 itemBuilder: (context, index) {
-                                  var msg = messages?[index];
+                                  var msg = messages[index];
                                   return BubbleNormal(
                                     text: msg,
                                     isSender: true,
