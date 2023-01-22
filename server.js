@@ -3,6 +3,9 @@ const express = require('express');
 const host = 'localhost';
 const port = 5000;
 const clientApp = path.join(__dirname, 'client');
+
+const cors = require('cors');
+// express app
 let app = express();
 
 // helper function to log all incoming requests to the web server
@@ -13,7 +16,8 @@ function logRequest(req, res, next){
 
 app.use(express.json({limit:'50mb', extended : true})) 						// to parse application/json
 app.use(express.urlencoded({ limit:'50mb', extended: true })) // to parse application/x-www-form-urlencoded
-app.use(logRequest);	
+app.use(logRequest);
+app.use(cors());	
 
 const { Client } = require('pg')
 const connectionString = "postgres://cvvrbfes:NJOlLogK8f2de6TZnnJfOPwnS-kO0ftg@kashin.db.elephantsql.com/cvvrbfes";
