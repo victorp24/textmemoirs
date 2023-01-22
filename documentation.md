@@ -15,8 +15,8 @@ Insert a user into the system.
     "phoneNumber": "+17707626118",
     "userName": "Test User",
     "password": "Test Password"
-}
-</code>
+}</code>
+
 ### Get Users
 
 Get all users in the system.
@@ -33,8 +33,7 @@ Add a text to the system for a specific user.
 -   Body:
 <code>{  
 "phoneNumber":  "+17707626118",  "textMessage":  "Text message #3",  "creationDate":  "1/21/2023",  "creationTime":  "2:57:14 PM"  
-}
-</code>
+}</code>
 
 ### Get Texts By User And Day
 
@@ -55,8 +54,7 @@ Delete a specific text by ID.
 -  Body:
 <code>{
 	"textId":  3
-}
-</code>
+}</code>
 
  
 ### Edit Texts By ID
@@ -71,5 +69,4 @@ Edit a specific text by ID.
 <code>{
 "textId":  2,
 "textMessage":  "Updated text message"
-}
-</code>
+}</code>
