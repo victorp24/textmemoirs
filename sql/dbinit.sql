@@ -5,10 +5,16 @@ CREATE TABLE users (
 );
 
 CREATE TABLE texts (
-    textId UUID NOT NULL DEFAULT gen_random_uuid(),
+    textId SERIAL PRIMARY KEY,
     phoneNumber STRING REFERENCES users (phoneNumber),
     textMessage STRING,
     creationDate STRING,
-    creationTime STRING,
-    CONSTRAINT "primary" PRIMARY KEY (textId)   
+    creationTime STRING
 );
+
+CREATE SEQUENCE textMemoirSequence 
+    START 1
+    INCREMENT 1
+    MINVALUE 1;
+
+ALTER TABLE ONLY texts ALTER COLUMN textId SET DEFAULT nextval('textMemoirSequence'::regclass);

@@ -19,7 +19,7 @@ app.use(logRequest);
 
 const { Client } = require('pg')
 
-const client = new Client("postgresql://parm-nwhacks:pp4yk1Z0r6dqC3SkcOne6w@dissed-lion-4737.6wr.cockroachlabs.cloud:26257/textmemoirDB?sslmode=verify-full"); 
+const client = new Client("postgresql://parm-nwhacks:password@dissed-lion-4737.6wr.cockroachlabs.cloud:26257/textmemoirnwhacks?sslmode=verify-full"); 
 
 client.connect((err) => {
 if (err) {
@@ -52,11 +52,11 @@ app.post('/api/stop', function (req, res) {
 //Endpoints
 //Insert User
 app.post("/insertUser", (req, res) => {
-    const {userPhoneNumber, userName, userPassword} = req.body;
+    const {phoneNumber, userName, password} = req.body;
     let insertUserQuery = {
         name: "insertUserQuery",
         text: "INSERT INTO users(phoneNumber, userName, password) VALUES($1, $2, $3) RETURNING *",
-        values: [userPhoneNumber, userName, userPassword]
+        values: [phoneNumber, userName, password]
     };
 
     client.query(insertUserQuery)
@@ -74,20 +74,38 @@ app.get("/getUsers", (req, res) => {
     let getUsersQuery = "SELECT * FROM users";
     client.query(getUsersQuery)
         .then((data) => {
-            res.send(data.rows[0]);
+            res.send(data.rows);
         })
         .catch((error) => {
             res.send(error.stack);
         })
 })
 
+//AddTexts
+app.post("/addText", (req, res) => {
+    const {phoneNumber, textMessage, creationDate, creationTime} = req.body;
+    let insertTextQuery = {
+        name: "insertTextQuery",
+        text: "INSERT INTO texts(phoneNumber, textMessage, creationDate, creationTime) VALUES($1, $2, $3, $4) RETURNING textId",
+        values: [phoneNumber, textMessage, creationDate, creationTime]
+    };
+
+    client.query(insertTextQuery)
+        .then((data) => {
+            res.send(data.rows[0]);
+        })
+        .catch((error) => {
+            console.log(error.stack);
+        })
+})
+
 //GetTextsByUserAndDay
 app.get("/getTextsByUserAndDay", (req, res) => {
-    const {userPhoneNumber, textDate} = req.body;
+    const {phoneNumber, creationDate} = req.body;
     let getTextsQuery = {
         name: "getTextsByUserAndDay",
         text: "SELECT * FROM texts WHERE phoneNumber = $1 AND creationDate = $2",
-        values: [userPhoneNumber, textDate]
+        values: [phoneNumber, creationDate]
     };
 
     client.query(getTextsQuery)
@@ -100,10 +118,6 @@ app.get("/getTextsByUserAndDay", (req, res) => {
         });
 })
 
-//AddTexts
-app.post("/addTexts", (req, res) => {
-
-})
 
 //EditTextById
 app.put("/editTextsById", (req, res) => {
