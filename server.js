@@ -141,7 +141,7 @@ app.put("/editTextsById", (req, res) => {
 
     client.query(editTextQuery)
         .then(() => {
-            res.send({textId});
+            res.send({message: "Succesfully Edited"});
         })
         .catch(() => {
             res.send({error: "Unable To Update Message"})
