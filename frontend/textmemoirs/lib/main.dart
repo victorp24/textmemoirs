@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'Arial',
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
-                color: PrimaryColorDark),
+                color: Colors.black),
           ),
           backgroundColor: Background,
           primaryColor: PrimaryColor,
