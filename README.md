@@ -1,6 +1,12 @@
 # TextMemoirs
 ## nwHacks 2023 Submission by Victor Parangue, Kareem El-Wishahy, Parmvir Shergill, and Daniel Lee
 
+Journalling is a well-established practice that has been shown to have many benefits for mental health and overall well-being. Some of the main benefits of journalling include the ability to reflect on one's thoughts and emotions,  reduce stress and anxiety, and document progress and growth. By writing down our experiences and feelings, we are able to process and understand them better, which can lead to greater self-awareness and insight. We can track our personal development, and identify the patterns and triggers that may be contributing to our stress and anxiety. Journalling is a practice that everyone can benefit from.
+
+Text Memoirs is designed to make the benefits of journalling easy and accessible to everyone. By using a mobile text-message based journaling format, users can document their thoughts and feelings in a real-time sequential journal, as they go about their day. 
+
+Text Memoirs utilizes Twilio’s API to receive and store user’s text messages in a CockroachDB database. The frontend interface for viewing a user’s daily journals is built using Flutter.
+
 # TextMemoirs API
 
 This API allows you to insert users, get all users, add texts, get texts by user and day, delete texts by id, get all texts and edit texts by id.
