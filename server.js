@@ -113,7 +113,8 @@ app.get("/getTextsByUserAndDay", (req, res) => {
         .then((data) => {
             res.send(data.rows);
         })
-        .catch(() => {
+        .catch((error) => {
+            console.log(error.stack)
             res.send({error: "unable to get texts"});
         });
 })
@@ -141,8 +142,12 @@ app.put("/editTextsById", (req, res) => {
     };
 
     client.query(editTextQuery)
-        .then(() => {
-            res.send({message: "Succesfully Edited"});
+        .then((data) => {
+            if (data.rowCount === 0) {
+                res.send({message: "That Id does not exist"});
+            } else {
+                res.send({message: "Succesfully Edited"});
+            }
         })
         .catch(() => {
             res.send({error: "Unable To Update Message"})
@@ -154,8 +159,12 @@ app.delete("/deleteTextsById", (req, res) => {
     const textId = req.body.textId;
     let deleteTextQuery = `DELETE FROM texts WHERE textId = ${textId}`
     client.query(deleteTextQuery)
-        .then(() => {
-            res.send({message: "Succesfully Deleted"})
+        .then((data) => {
+            if (data.rowCount === 0) {
+                res.send({message: "That Id does not exist"});
+            } else {
+                res.send({message: "Succesfully Deleted"})
+            }
         })
         .catch(() => {
             res.send({error: "Unable To Delete Text"})
