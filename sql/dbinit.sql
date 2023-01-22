@@ -11,3 +11,10 @@ CREATE TABLE texts (
     creationDate STRING,
     creationTime STRING
 );
+
+CREATE SEQUENCE textMemoirSequence 
+    START 1
+    INCREMENT 1
+    MINVALUE 1;
+
+ALTER TABLE ONLY texts ALTER COLUMN textId SET DEFAULT nextval('textMemoirSequence'::regclass);
