@@ -99,7 +99,7 @@ app.post("/addText", (req, res) => {
 
 //GetTextsByUserAndDay
 app.get("/getTextsByUserAndDay", (req, res) => {
-    const {phoneNumber, creationDate} = req.body;
+    const {phoneNumber, creationDate} = req.query;
     let getTextsQuery = {
         name: "getTextsByUserAndDay",
         text: "SELECT * FROM texts WHERE phoneNumber = $1 AND creationDate = $2",
